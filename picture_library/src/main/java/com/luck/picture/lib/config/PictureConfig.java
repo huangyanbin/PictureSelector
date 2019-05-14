@@ -24,8 +24,10 @@ public final class PictureConfig {
     public final static String EXTRA_CONFIG = "PictureSelectorConfig";
     public final static String IMAGE = "image";
     public final static String VIDEO = "video";
+    public static final String OGTYPE = "ogType";
 
-
+    public static final int OG_CHECK = 2776;  // 原图选中
+    public static final int OG_UNCHECK = 2777; // 原图未选中
     public final static int UPDATE_FLAG = 2774;// 预览界面更新选中数据 标识
     public final static int CLOSE_PREVIEW_FLAG = 2770;// 关闭预览界面 标识
     public final static int PREVIEW_DATA_FLAG = 2771;// 预览界面图片 标识

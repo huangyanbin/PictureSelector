@@ -2,7 +2,7 @@
 <com.luck.picture.lib.widget.SquareRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/color_69"
+    android:background="@color/color_e5"
     android:gravity="center_vertical"
     android:orientation="vertical">
 
@@ -21,5 +21,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/margin_top"
         android:text="@string/picture_take_picture"
-        android:textColor="@color/white" />
+        android:textColor="@color/color_999"
+        android:textSize="12sp" />
 </com.luck.picture.lib.widget.SquareRelativeLayout>

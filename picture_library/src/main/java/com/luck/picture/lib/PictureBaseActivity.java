@@ -50,7 +50,7 @@ import io.reactivex.schedulers.Schedulers;
 public class PictureBaseActivity extends FragmentActivity {
     protected Context mContext;
     protected PictureSelectionConfig config;
-    protected boolean openWhiteStatusBar, numComplete;
+    protected boolean openWhiteStatusBar, numComplete, hasOgCheck;
     protected int colorPrimary, colorPrimaryDark;
     protected String cameraPath, outputCameraPath;
     protected String originalPath;
@@ -120,6 +120,8 @@ public class PictureBaseActivity extends FragmentActivity {
         if (selectionMedias == null) {
             selectionMedias = new ArrayList<>();
         }
+        // 原图check按钮
+        hasOgCheck = config.hasOgCheck;
     }
 
     @Override
@@ -436,6 +438,7 @@ public class PictureBaseActivity extends FragmentActivity {
             images.addAll(images.size() > 0 ? images.size() - 1 : 0, selectionMedias);
         }
         Intent intent = PictureSelector.putIntentResult(images);
+        intent.putExtra(PictureConfig.OGTYPE, config.ogCheck);
         setResult(RESULT_OK, intent);
         closeActivity();
     }

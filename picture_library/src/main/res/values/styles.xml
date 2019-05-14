@@ -75,6 +75,8 @@
         <item name="picture.title.textColor">@color/white</item>
         <!--标题栏右边文字-->
         <item name="picture.right.textColor">@color/white</item>
+        <!--左边文字的颜色-->
+        <item name="picture.left.textColor">@color/white</item>
         <!--图片列表勾选样式-->
         <item name="picture.checked.style">@drawable/picture_checkbox_selector</item>
         <!--开启图片列表勾选数字模式-->
@@ -107,6 +109,10 @@
         <item name="picture.crop.title.color">@color/white</item>
         <!--相册文件夹列表选中图标-->
         <item name="picture.folder_checked_dot">@drawable/orange_oval</item>
+        <!--图片列表已完成背景-->
+        <item name="picture.complete.text.bg">@drawable/picture_complete_text_bg</item>
+        <!--是否存在 原图的check按钮-->
+        <item name="picture.has.og.check">false</item>
     </style>
 
 </resources>

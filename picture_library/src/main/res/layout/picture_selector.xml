@@ -17,7 +17,7 @@
     <RelativeLayout
         android:id="@+id/rl_bottom"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="49dp"
         android:layout_alignParentBottom="true"
         android:background="?attr/picture.bottom.bg"
         android:gravity="center_vertical">
@@ -29,10 +29,27 @@
             android:layout_centerVertical="true"
             android:enabled="false"
             android:gravity="left|center"
-            android:padding="12dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="14dp"
             android:text="@string/picture_preview"
             android:textColor="?attr/picture.preview.textColor"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
+
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/picture_og_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/picture_id_preview"
+            android:layout_toRightOf="@id/picture_id_preview"
+            android:button="@drawable/picture_og_checkbox_selector"
+            android:paddingStart="8dp"
+            android:paddingLeft="8dp"
+            android:text="原图"
+            android:textColor="#FF333333"
+            android:textSize="16dp" />
+
 
         <LinearLayout
             android:id="@+id/id_ll_ok"
@@ -59,9 +76,14 @@
             <TextView
                 android:id="@+id/picture_tv_ok"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/picture.complete.text.bg"
                 android:gravity="center|left"
-                android:paddingRight="12dp"
+                android:paddingLeft="9dp"
+                android:paddingTop="7dp"
+                android:paddingRight="9dp"
+                android:paddingBottom="7dp"
+                android:layout_marginRight="16dp"
                 android:text="@string/picture_please_select"
                 android:textColor="?attr/picture.complete.textColor"
                 android:textSize="14sp" />

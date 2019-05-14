@@ -23,6 +23,7 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.permissions.RxPermissions;
 import com.luck.picture.lib.tools.PictureFileUtils;
+import com.luck.picture.lib.tools.ToastManage;
 import com.luck.pictureselector.adapter.GridImageAdapter;
 
 import java.io.File;
@@ -195,6 +196,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         //.videoQuality()// 视频录制质量 0 or 1
                         //.videoSecond()//显示多少秒以内的视频or音频也可适用
                         //.recordVideoSecond()//录制视频秒数 默认60s
+                        .hasOgCheck(true)
                         .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
             } else {
                 // 单独拍照
@@ -230,6 +232,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         //.scaleEnabled()// 裁剪是否可放大缩小图片
                         //.videoQuality()// 视频录制质量 0 or 1
                         //.videoSecond()////显示多少秒以内的视频or音频也可适用
+                        .hasOgCheck(true)
                         .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
             }
         }
@@ -254,6 +257,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                     adapter.setList(selectList);
                     adapter.notifyDataSetChanged();
+                    // 获取是否需要压缩上传
+                    boolean booleanExtra = data.getBooleanExtra(PictureConfig.OGTYPE, false);
+                    ToastManage.s(this, booleanExtra ? "选择原图" : "选择的不是原图");
                     break;
             }
         }

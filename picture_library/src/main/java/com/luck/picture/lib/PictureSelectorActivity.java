@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -106,6 +108,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
             }
         }
     };
+    private AppCompatCheckBox pictureOgCheck;
 
     /**
      * EventBus 3.0 回调
@@ -137,6 +140,13 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                     }
                 }
                 break;
+            case PictureConfig.OG_CHECK:
+                pictureOgCheck.setChecked(true);
+                break;
+            case PictureConfig.OG_UNCHECK:
+                pictureOgCheck.setChecked(false);
+                break;
+
         }
     }
 
@@ -200,6 +210,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
         picture_recycler = (RecyclerView) findViewById(R.id.picture_recycler);
         id_ll_ok = (LinearLayout) findViewById(R.id.id_ll_ok);
         tv_empty = (TextView) findViewById(R.id.tv_empty);
+        pictureOgCheck = ((AppCompatCheckBox) findViewById(R.id.picture_og_check));
         isNumComplete(numComplete);
         if (config.mimeType == PictureMimeType.ofAll()) {
             popupWindow = new PhotoPopupWindow(this);
@@ -208,10 +219,13 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
         picture_id_preview.setOnClickListener(this);
         if (config.mimeType == PictureMimeType.ofAudio()) {
             picture_id_preview.setVisibility(View.GONE);
+            pictureOgCheck.setVisibility(View.GONE);
             audioH = ScreenUtils.getScreenHeight(mContext)
                     + ScreenUtils.getStatusBarHeight(mContext);
         } else {
             picture_id_preview.setVisibility(config.mimeType == PictureConfig.TYPE_VIDEO
+                    ? View.GONE : View.VISIBLE);
+            pictureOgCheck.setVisibility(config.mimeType == PictureConfig.TYPE_VIDEO
                     ? View.GONE : View.VISIBLE);
         }
         picture_left_back.setOnClickListener(this);
@@ -273,6 +287,20 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
         if (config.isCamera) {
             config.isCamera = StringUtils.isCamera(titleText);
         }
+
+        if (config.mimeType != PictureConfig.TYPE_VIDEO && config.mimeType != PictureMimeType.ofAudio()) {
+            pictureOgCheck.setVisibility(hasOgCheck ? View.VISIBLE : View.INVISIBLE);
+            if (hasOgCheck) {
+                pictureOgCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        config.ogCheck = isChecked;
+                    }
+                });
+            }
+        }
+
+
     }
 
     @Override
@@ -839,10 +867,12 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                 ? selectImages.get(0).getPictureType() : "";
         if (config.mimeType == PictureMimeType.ofAudio()) {
             picture_id_preview.setVisibility(View.GONE);
+            pictureOgCheck.setVisibility(View.INVISIBLE);
         } else {
             boolean isVideo = PictureMimeType.isVideo(pictureType);
             boolean eqVideo = config.mimeType == PictureConfig.TYPE_VIDEO;
             picture_id_preview.setVisibility(isVideo || eqVideo ? View.GONE : View.VISIBLE);
+            pictureOgCheck.setVisibility(isVideo || eqVideo ? View.GONE : View.VISIBLE);
         }
         boolean enable = selectImages.size() != 0;
         if (enable) {
@@ -851,9 +881,11 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
             picture_id_preview.setSelected(true);
             picture_tv_ok.setSelected(true);
             if (numComplete) {
+//                picture_tv_ok.setText(getString
+//                        (R.string.picture_done_front_num, selectImages.size(),
+//                                config.selectionMode == PictureConfig.SINGLE ? 1 : config.maxSelectNum));
                 picture_tv_ok.setText(getString
-                        (R.string.picture_done_front_num, selectImages.size(),
-                                config.selectionMode == PictureConfig.SINGLE ? 1 : config.maxSelectNum));
+                        (R.string.picture_done_front_num2, selectImages.size()));
             } else {
                 if (!anim) {
                     picture_tv_img_num.startAnimation(animation);
@@ -869,8 +901,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
             picture_id_preview.setSelected(false);
             picture_tv_ok.setSelected(false);
             if (numComplete) {
-                picture_tv_ok.setText(getString(R.string.picture_done_front_num, 0,
-                        config.selectionMode == PictureConfig.SINGLE ? 1 : config.maxSelectNum));
+                picture_tv_ok.setText(getString(R.string.picture_done_front_num2, 0));
             } else {
                 picture_tv_img_num.setVisibility(View.INVISIBLE);
                 picture_tv_ok.setText(getString(R.string.picture_please_select));

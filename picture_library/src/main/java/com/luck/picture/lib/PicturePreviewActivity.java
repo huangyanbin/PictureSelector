@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -58,6 +60,7 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
     private int index;
     private int screenWidth;
     private Handler mHandler;
+    private AppCompatCheckBox pictureOgCheck;
 
     /**
      * EventBus 3.0 回调
@@ -101,6 +104,7 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
         id_ll_ok.setOnClickListener(this);
         tv_img_num = (TextView) findViewById(R.id.tv_img_num);
         tv_title = (TextView) findViewById(R.id.picture_title);
+        pictureOgCheck = ((AppCompatCheckBox) findViewById(R.id.picture_og_check));
         position = getIntent().getIntExtra(PictureConfig.EXTRA_POSITION, 0);
         tv_ok.setText(numComplete ? getString(R.string.picture_done_front_num,
                 0, config.selectionMode == PictureConfig.SINGLE ? 1 : config.maxSelectNum)
@@ -131,7 +135,7 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
                         boolean toEqual = PictureMimeType.
                                 mimeToEqual(pictureType, image.getPictureType());
                         if (!toEqual) {
-                            ToastManage.s(mContext,getString(R.string.picture_rule));
+                            ToastManage.s(mContext, getString(R.string.picture_rule));
                             return;
                         }
                     }
@@ -146,6 +150,7 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
                         check.setSelected(false);
                     }
                     if (selectImages.size() >= config.maxSelectNum && isChecked) {
+                        // TODO: 2019/5/14  
                         ToastManage.s(mContext, getString(R.string.picture_message_max_num, config.maxSelectNum));
                         check.setSelected(false);
                         return;
@@ -200,6 +205,18 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
             public void onPageScrollStateChanged(int state) {
             }
         });
+
+        pictureOgCheck.setVisibility(hasOgCheck ? View.VISIBLE : View.INVISIBLE);
+        if (hasOgCheck) {
+            pictureOgCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    config.ogCheck = isChecked;
+                    RxBus.getDefault().post(new EventEntity(isChecked ? PictureConfig.OG_CHECK : PictureConfig.OG_UNCHECK));
+                }
+            });
+            pictureOgCheck.setChecked(config.ogCheck);
+        }
     }
 
     /**
@@ -402,7 +419,7 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
                     boolean eqImg = pictureType.startsWith(PictureConfig.IMAGE);
                     String str = eqImg ? getString(R.string.picture_min_img_num, config.minSelectNum)
                             : getString(R.string.picture_min_video_num, config.minSelectNum);
-                    ToastManage.s(mContext,str);
+                    ToastManage.s(mContext, str);
                     return;
                 }
             }
@@ -454,7 +471,7 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
             }
         } else if (resultCode == UCrop.RESULT_ERROR) {
             Throwable throwable = (Throwable) data.getSerializableExtra(UCrop.EXTRA_ERROR);
-            ToastManage.s(mContext,throwable.getMessage());
+            ToastManage.s(mContext, throwable.getMessage());
         }
     }
 

@@ -387,6 +387,17 @@ public class PictureSelectionModel {
     }
 
     /**
+     * 是否存在 原图选择按钮
+     *
+     * @param hasOgCheck
+     * @return
+     */
+    public PictureSelectionModel hasOgCheck(boolean hasOgCheck) {
+        selectionConfig.hasOgCheck = hasOgCheck;
+        return this;
+    }
+
+    /**
      * @param selectionMedia Select the selected picture set
      * @return
      */
@@ -397,6 +408,7 @@ public class PictureSelectionModel {
         selectionConfig.selectionMedias = selectionMedia;
         return this;
     }
+
 
     /**
      * Start to select media and wait for result.
