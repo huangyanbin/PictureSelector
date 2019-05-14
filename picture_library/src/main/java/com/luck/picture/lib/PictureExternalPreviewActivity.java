@@ -32,6 +32,7 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.dialog.CustomDialog;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.luck.picture.lib.immersive.ImmersiveManage;
 import com.luck.picture.lib.permissions.RxPermissions;
 import com.luck.picture.lib.photoview.OnViewTapListener;
 import com.luck.picture.lib.photoview.PhotoView;
@@ -72,6 +73,14 @@ public class PictureExternalPreviewActivity extends PictureBaseActivity implemen
     private LayoutInflater inflater;
     private RxPermissions rxPermissions;
     private loadDataThread loadDataThread;
+
+    @Override
+    public void immersive() {
+        ImmersiveManage.immersiveAboveAPI23(this
+                , picture_colorPrimaryDark_preview
+                , picture_colorPrimaryDark_preview
+                , openWhiteStatusBarPreview);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

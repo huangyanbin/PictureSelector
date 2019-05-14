@@ -40,4 +40,6 @@
     <attr name="picture.folder_checked_dot" format="reference" />
     <attr name="picture.complete.text.bg" format="reference" />
     <attr name="picture.has.og.check" format="boolean" />
+    <attr name="picture.colorPrimaryDark.preview" format="reference|color" />
+    <attr name="picture.statusFontColor.preview" format="boolean" />
 </resources>

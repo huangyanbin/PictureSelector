@@ -20,6 +20,7 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.EventEntity;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.luck.picture.lib.immersive.ImmersiveManage;
 import com.luck.picture.lib.observable.ImagesObservable;
 import com.luck.picture.lib.rxbus2.RxBus;
 import com.luck.picture.lib.rxbus2.Subscribe;
@@ -84,9 +85,19 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
     }
 
     @Override
+    public void immersive() {
+        ImmersiveManage.immersiveAboveAPI23(this
+                , picture_colorPrimaryDark_preview
+                , picture_colorPrimaryDark_preview
+                , openWhiteStatusBarPreview);
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.picture_preview);
+
         if (!RxBus.getDefault().isRegistered(this)) {
             RxBus.getDefault().register(this);
         }

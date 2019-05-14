@@ -50,8 +50,8 @@ import io.reactivex.schedulers.Schedulers;
 public class PictureBaseActivity extends FragmentActivity {
     protected Context mContext;
     protected PictureSelectionConfig config;
-    protected boolean openWhiteStatusBar, numComplete, hasOgCheck;
-    protected int colorPrimary, colorPrimaryDark;
+    protected boolean openWhiteStatusBar, numComplete, hasOgCheck,openWhiteStatusBarPreview;
+    protected int colorPrimary, colorPrimaryDark,picture_colorPrimaryDark_preview;
     protected String cameraPath, outputCameraPath;
     protected String originalPath;
     protected PictureDialog dialog;
@@ -122,6 +122,9 @@ public class PictureBaseActivity extends FragmentActivity {
         }
         // 原图check按钮
         hasOgCheck = config.hasOgCheck;
+        // 预览界面标题的颜色 picture.ac_preview.title.bg
+        picture_colorPrimaryDark_preview = AttrsUtils.getTypeValueColor(this,R.attr.picture_colorPrimaryDark_preview);
+        openWhiteStatusBarPreview = AttrsUtils.getTypeValueBoolean(this,R.attr.picture_statusFontColor_preview);
     }
 
     @Override

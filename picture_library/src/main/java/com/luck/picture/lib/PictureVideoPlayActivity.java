@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
+import com.luck.picture.lib.immersive.ImmersiveManage;
+
 public class PictureVideoPlayActivity extends PictureBaseActivity implements MediaPlayer.OnErrorListener, MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener, View.OnClickListener {
     private String video_path = "";
     private ImageView picture_left_back;
@@ -18,11 +20,19 @@ public class PictureVideoPlayActivity extends PictureBaseActivity implements Med
     private VideoView mVideoView;
     private ImageView iv_play;
     private int mPositionWhenPaused = -1;
+    @Override
+    public void immersive() {
+        ImmersiveManage.immersiveAboveAPI23(this
+                , picture_colorPrimaryDark_preview
+                , picture_colorPrimaryDark_preview
+                , openWhiteStatusBarPreview);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.picture_activity_video_play);
         video_path = getIntent().getStringExtra("video_path");
         picture_left_back = (ImageView) findViewById(R.id.picture_left_back);

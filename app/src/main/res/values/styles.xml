@@ -65,6 +65,10 @@
         <item name="picture.complete.text.bg">@drawable/picture_complete_text_bg</item>
         <!--是否存在 原图的check按钮-->
         <item name="picture.has.og.check">true</item>
+        <!--预览界面状态栏背景色-->
+        <item name="picture.colorPrimaryDark.preview">#000000</item>
+        <!--是否改变图片预览界面状态栏字体颜色为黑色-->
+        <item name="picture.statusFontColor.preview">true</item>
     </style>
 
     <!--QQ数字风格样式，注意每一项都不能少-->
@@ -124,6 +128,10 @@
         <item name="picture.complete.text.bg">@drawable/picture_complete_text_bg</item>
         <!--是否存在 原图的check按钮-->
         <item name="picture.has.og.check">true</item>
+        <!--预览界面状态栏背景色-->
+        <item name="picture.colorPrimaryDark.preview">#000000</item>
+        <!--是否改变图片预览界面状态栏字体颜色为黑色-->
+        <item name="picture.statusFontColor.preview">false</item>
     </style>
 
 
@@ -185,6 +193,10 @@
         <item name="picture.complete.text.bg">@drawable/picture_complete_text_bg</item>
         <!--是否存在 原图的check按钮-->
         <item name="picture.has.og.check">true</item>
+        <!--预览界面状态栏背景色-->
+        <item name="picture.colorPrimaryDark.preview">#000000</item>
+        <!--是否改变图片预览界面状态栏字体颜色为黑色-->
+        <item name="picture.statusFontColor.preview">false</item>
     </style>
 
 
