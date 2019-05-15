@@ -42,4 +42,6 @@
     <string name="picture_audio_error">The audio is corrupted</string>
     <string name="picture_confirm">Cancel</string>
     <string name="picture_message_video_max_num">You can choose%1$s videos at most</string>
+    <string name="picture_og">og</string>
+    <string name="picture_og_format">og（%s）</string>
 </resources>

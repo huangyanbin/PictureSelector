@@ -121,7 +121,7 @@ public class PictureBaseActivity extends FragmentActivity {
             selectionMedias = new ArrayList<>();
         }
         // 原图check按钮
-        hasOgCheck = config.hasOgCheck;
+        hasOgCheck = true;
         // 预览界面标题的颜色 picture.ac_preview.title.bg
         picture_colorPrimaryDark_preview = AttrsUtils.getTypeValueColor(this,R.attr.picture_colorPrimaryDark_preview);
         openWhiteStatusBarPreview = AttrsUtils.getTypeValueBoolean(this,R.attr.picture_statusFontColor_preview);

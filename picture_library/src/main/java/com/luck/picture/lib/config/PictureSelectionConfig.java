@@ -113,7 +113,7 @@ public final class PictureSelectionConfig implements Parcelable {
         compressSavePath = "";
         suffixType = PictureFileUtils.POSTFIX;
         sizeMultiplier = 0.5f;
-        hasOgCheck = false;
+        hasOgCheck = true;
         ogCheck = false;
         selectionMedias = new ArrayList<>();
     }

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.CompoundButton;
@@ -26,6 +27,7 @@ import com.luck.picture.lib.observable.ImagesObservable;
 import com.luck.picture.lib.rxbus2.RxBus;
 import com.luck.picture.lib.rxbus2.Subscribe;
 import com.luck.picture.lib.rxbus2.ThreadMode;
+import com.luck.picture.lib.tools.PictureFileUtils;
 import com.luck.picture.lib.tools.ScreenUtils;
 import com.luck.picture.lib.tools.ToastManage;
 import com.luck.picture.lib.tools.VoiceUtils;
@@ -162,7 +164,7 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
                         check.setSelected(false);
                     }
                     if (selectImages.size() >= config.maxSelectNum && isChecked) {
-                         new PictureTipDialog(mContext).setTip(getString(R.string.picture_message_max_num, config.maxSelectNum)).show();
+                        new PictureTipDialog(mContext).setTip(getString(R.string.picture_message_max_num, config.maxSelectNum)).show();
                         //ToastManage.s(mContext, getString(R.string.picture_message_max_num, config.maxSelectNum));
                         check.setSelected(false);
                         return;
@@ -224,6 +226,7 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     config.ogCheck = isChecked;
+                    onImageChecked(position);
                     RxBus.getDefault().post(new EventEntity(isChecked ? PictureConfig.OG_CHECK : PictureConfig.OG_UNCHECK));
                 }
             });
@@ -326,7 +329,7 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
     }
 
     /**
-     * 判断当前图片是否选中
+     * 判断当前图片是否选中  获取当前图片的大小
      *
      * @param position
      */
@@ -334,8 +337,21 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
         if (images != null && images.size() > 0) {
             LocalMedia media = images.get(position);
             check.setSelected(isSelected(media));
+            updateOgSize(media);
         } else {
             check.setSelected(false);
+        }
+    }
+
+    public void updateOgSize(LocalMedia image) {
+        if (config.ogCheck) {
+            String path = image.getPath();
+            long fileAllSize = PictureFileUtils.getFileAllSize(path);
+            String s = PictureFileUtils.convertFileSize(fileAllSize);
+            String format = String.format(getString(R.string.picture_og_format), s);
+            pictureOgCheck.setText(format);
+        } else {
+            pictureOgCheck.setText(R.string.picture_og);
         }
     }
 

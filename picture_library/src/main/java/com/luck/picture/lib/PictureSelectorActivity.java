@@ -302,6 +302,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                     }
                 });
             }
+            pictureOgCheck.setChecked(config.ogCheck);
         }
 
     }

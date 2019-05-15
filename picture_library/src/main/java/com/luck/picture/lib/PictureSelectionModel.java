@@ -387,13 +387,13 @@ public class PictureSelectionModel {
     }
 
     /**
-     * 是否存在 原图选择按钮
+     * 是否默认选中原图
      *
-     * @param hasOgCheck
+     * @param ogCheck
      * @return
      */
-    public PictureSelectionModel hasOgCheck(boolean hasOgCheck) {
-        selectionConfig.hasOgCheck = hasOgCheck;
+    public PictureSelectionModel ogCheck(boolean ogCheck) {
+        selectionConfig.ogCheck = ogCheck;
         return this;
     }
 

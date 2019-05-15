@@ -46,7 +46,7 @@
             android:button="@drawable/picture_og_checkbox_selector"
             android:paddingStart="8dp"
             android:paddingLeft="8dp"
-            android:text="原图"
+            android:text="@string/picture_og"
             android:textColor="#FF333333"
             android:textSize="16dp" />
 
@@ -77,13 +77,13 @@
                 android:id="@+id/picture_tv_ok"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
                 android:background="?attr/picture.complete.text.bg"
                 android:gravity="center|left"
                 android:paddingLeft="9dp"
                 android:paddingTop="7dp"
                 android:paddingRight="9dp"
                 android:paddingBottom="7dp"
-                android:layout_marginRight="16dp"
                 android:text="@string/picture_please_select"
                 android:textColor="?attr/picture.complete.textColor"
                 android:textSize="14sp" />
