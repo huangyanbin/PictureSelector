@@ -73,7 +73,7 @@
 
 ```
 dependencies {
-    implementation 'implementation 'com.github.fanqilongmoli.PictureSelector:picture_library:2.2.7''
+    implementation 'com.github.fanqilongmoli.PictureSelector:picture_library:2.2.7'
 }
 
 ```
@@ -335,6 +335,9 @@ PictureSelector.create(MainActivity.this).externalPictureVideo(video_path);
                     // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
                     adapter.setList(selectList);
                     adapter.notifyDataSetChanged();
+					// 获取是否需要压缩上传
+                    boolean booleanExtra = data.getBooleanExtra(PictureConfig.OGTYPE, false);
+					ToastManage.s(this, booleanExtra ? "选择原图" : "选择的不是原图");
                     break;
             }
         }
