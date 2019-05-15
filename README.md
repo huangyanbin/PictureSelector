@@ -212,6 +212,7 @@ Glide.with(context).load(url).apply(options).into(imageView);
         .videoMinSecond(10)// 显示多少秒以内的视频or音频也可适用 int 
 	.recordVideoSecond()//视频秒数录制 默认60s int
 	.isDragFrame(false)// 是否可拖动裁剪框(固定)
+	.ogCheck(true) // 设置是否选中 原图按钮 《------------------》
  	.forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code     
 ```
 
@@ -228,47 +229,47 @@ Glide.with(context).load(url).apply(options).into(imageView);
     <style name="picture.default.style" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <!--标题栏背景色-->
-        <item name="colorPrimary">@color/bar_grey</item>
+        <item name="colorPrimary">@color/white</item>
         <!--状态栏背景色-->
-        <item name="colorPrimaryDark">@color/bar_grey</item>
+        <item name="colorPrimaryDark">@color/white</item>
         <!--是否改变图片列表界面状态栏字体颜色为黑色-->
-        <item name="picture.statusFontColor">false</item>
+        <item name="picture.statusFontColor">true</item>
         <!--返回键图标-->
-        <item name="picture.leftBack.icon">@drawable/picture_back</item>
+        <item name="picture.leftBack.icon">@drawable/picture_back_blue</item>
         <!--标题下拉箭头-->
-        <item name="picture.arrow_down.icon">@drawable/arrow_down</item>
+        <item name="picture.arrow_down.icon">@drawable/arrow_down_black</item>
         <!--标题上拉箭头-->
-        <item name="picture.arrow_up.icon">@drawable/arrow_up</item>
+        <item name="picture.arrow_up.icon">@drawable/arrow_up_black</item>
         <!--标题文字颜色-->
-        <item name="picture.title.textColor">@color/white</item>
+        <item name="picture.title.textColor">#FF333333</item>
         <!--标题栏右边文字-->
-        <item name="picture.right.textColor">@color/white</item>
+        <item name="picture.right.textColor">#5B8EF2</item>
+        <!--标题栏左边文字-->
+        <item name="picture.left.textColor">#5B8EF2</item>
         <!--图片列表勾选样式-->
-        <item name="picture.checked.style">@drawable/checkbox_selector</item>
-        <!--开启图片列表勾选数字模式-->
-        <item name="picture.style.checkNumMode">false</item>
+        <item name="picture.checked.style">@drawable/checkbox_num_selector</item>
+        <!--开启图片列表勾选数字模式,开启的话勾选样式要换-->
+        <item name="picture.style.checkNumMode">true</item>
         <!--选择图片样式0/9-->
-        <item name="picture.style.numComplete">false</item>
+        <item name="picture.style.numComplete">true</item>
         <!--图片列表底部背景色-->
         <item name="picture.bottom.bg">@color/color_fa</item>
         <!--图片列表预览文字颜色-->
-        <item name="picture.preview.textColor">@color/tab_color_true</item>
+        <item name="picture.preview.textColor">#FF333333</item>
         <!--图片列表已完成文字颜色-->
-        <item name="picture.complete.textColor">@color/tab_color_true</item>
+        <item name="picture.complete.textColor">@color/white</item>
         <!--图片已选数量圆点背景色-->
-        <item name="picture.num.style">@drawable/num_oval</item>
+        <item name="picture.num.style">@drawable/num_oval_blue</item>
         <!--预览界面标题文字颜色-->
         <item name="picture.ac_preview.title.textColor">@color/white</item>
         <!--预览界面已完成文字颜色-->
-        <item name="picture.ac_preview.complete.textColor">@color/tab_color_true</item>
+        <item name="picture.ac_preview.complete.textColor">@color/white</item>
         <!--预览界面标题栏背景色-->
-        <item name="picture.ac_preview.title.bg">@color/bar_grey</item>
+        <item name="picture.ac_preview.title.bg">#cc000000</item>
         <!--预览界面底部背景色-->
-        <item name="picture.ac_preview.bottom.bg">@color/bar_grey_90</item>
+        <item name="picture.ac_preview.bottom.bg">#cc000000</item>
         <!--预览界面返回箭头-->
-        <item name="picture.preview.leftBack.icon">@drawable/picture_back</item>
-        <!--是否改变预览界面状态栏字体颜色为黑色-->
-        <item name="picture.preview.statusFontColor">false</item>
+        <item name="picture.preview.leftBack.icon">@drawable/preview_back</item>
         <!--裁剪页面标题背景色-->
         <item name="picture.crop.toolbar.bg">@color/bar_grey</item>
         <!--裁剪页面状态栏颜色-->
@@ -277,8 +278,15 @@ Glide.with(context).load(url).apply(options).into(imageView);
         <item name="picture.crop.title.color">@color/white</item>
         <!--相册文件夹列表选中图标-->
         <item name="picture.folder_checked_dot">@drawable/orange_oval</item>
+        <!--图片列表已完成背景-->
+        <item name="picture.complete.text.bg">@drawable/picture_complete_text_bg</item>
+        <!--是否存在 原图的check按钮-->
+        <item name="picture.has.og.check">true</item>
+        <!--预览界面状态栏背景色-->
+        <item name="picture.colorPrimaryDark.preview">#000000</item>
+        <!--是否改变图片预览界面状态栏字体颜色为黑色-->
+        <item name="picture.statusFontColor.preview">false</item>
     </style>
-
 ```
 
 ## 常用功能
