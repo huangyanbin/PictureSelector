@@ -18,6 +18,7 @@ import com.luck.picture.lib.adapter.SimpleFragmentAdapter;
 import com.luck.picture.lib.anim.OptAnimationLoader;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.dialog.PictureTipDialog;
 import com.luck.picture.lib.entity.EventEntity;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.immersive.ImmersiveManage;
@@ -161,8 +162,8 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
                         check.setSelected(false);
                     }
                     if (selectImages.size() >= config.maxSelectNum && isChecked) {
-                        // TODO: 2019/5/14  
-                        ToastManage.s(mContext, getString(R.string.picture_message_max_num, config.maxSelectNum));
+                         new PictureTipDialog(mContext).setTip(getString(R.string.picture_message_max_num, config.maxSelectNum)).show();
+                        //ToastManage.s(mContext, getString(R.string.picture_message_max_num, config.maxSelectNum));
                         check.setSelected(false);
                         return;
                     }

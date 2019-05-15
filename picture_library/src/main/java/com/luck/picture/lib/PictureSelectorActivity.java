@@ -33,6 +33,7 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.decoration.GridSpacingItemDecoration;
 import com.luck.picture.lib.dialog.CustomDialog;
+import com.luck.picture.lib.dialog.PictureTipDialog;
 import com.luck.picture.lib.entity.EventEntity;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.entity.LocalMediaFolder;
@@ -302,7 +303,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                 });
             }
         }
-
 
     }
 

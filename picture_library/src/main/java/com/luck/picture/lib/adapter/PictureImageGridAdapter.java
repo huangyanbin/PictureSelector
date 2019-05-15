@@ -24,6 +24,7 @@ import com.luck.picture.lib.anim.OptAnimationLoader;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.config.PictureSelectionConfig;
+import com.luck.picture.lib.dialog.PictureTipDialog;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.tools.DateUtils;
 import com.luck.picture.lib.tools.StringUtils;
@@ -323,7 +324,8 @@ public class PictureImageGridAdapter extends RecyclerView.Adapter<RecyclerView.V
             //
             String str = eqImg ? context.getString(R.string.picture_message_max_num, maxSelectNum)
                     : context.getString(R.string.picture_message_video_max_num, maxSelectNum);
-            ToastManage.s(context, str);
+            //ToastManage.s(context, str);
+            new PictureTipDialog(context).setTip(str).show();
             return;
         }
 
