@@ -73,7 +73,7 @@
 
 ```
 dependencies {
-    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
+    implementation 'implementation 'com.github.fanqilongmoli.PictureSelector:picture_library:2.2.7''
 }
 
 ```
