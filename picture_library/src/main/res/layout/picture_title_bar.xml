@@ -23,6 +23,7 @@
             android:src="?attr/picture.leftBack.icon" />
 
         <TextView
+            android:id="@+id/picture_left_back_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"

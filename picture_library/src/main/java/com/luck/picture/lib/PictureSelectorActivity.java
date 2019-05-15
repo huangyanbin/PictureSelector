@@ -109,6 +109,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
         }
     };
     private AppCompatCheckBox pictureOgCheck;
+    private TextView picture_left_back_text;
 
     /**
      * EventBus 3.0 回调
@@ -202,6 +203,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
 
         rl_picture_title = (RelativeLayout) findViewById(R.id.rl_picture_title);
         picture_left_back = (ImageView) findViewById(R.id.picture_left_back);
+        picture_left_back_text = ((TextView) findViewById(R.id.picture_left_back_text));
         picture_title = (TextView) findViewById(R.id.picture_title);
         picture_right = (TextView) findViewById(R.id.picture_right);
         picture_tv_ok = (TextView) findViewById(R.id.picture_tv_ok);
@@ -229,6 +231,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                     ? View.GONE : View.VISIBLE);
         }
         picture_left_back.setOnClickListener(this);
+        picture_left_back_text.setOnClickListener(this);
         picture_right.setOnClickListener(this);
         id_ll_ok.setOnClickListener(this);
         picture_title.setOnClickListener(this);
@@ -480,7 +483,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.picture_left_back || id == R.id.picture_right) {
+        if (id == R.id.picture_left_back || id == R.id.picture_right || id == R.id.picture_left_back_text) {
             if (folderWindow.isShowing()) {
                 folderWindow.dismiss();
             } else {
