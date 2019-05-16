@@ -20,6 +20,7 @@ android {
 
 dependencies {
     compile project(':picture_library')
+    //implementation 'com.github.fanqilongmoli.PictureSelector:picture_library:2.2.7'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'

@@ -38,7 +38,7 @@ public class PictureTipDialog extends FrameLayout {
 
     private void initView() {
         LayoutInflater.from(mContext).inflate(R.layout.dialog_picture_tip, this);
-        mDialog = new Dialog(mContext, R.style.picture_alert_dialog);
+        mDialog = new Dialog(mContext, R.style.Theme_dialog);
         mDialog.setContentView(this);
         mDialog.setCancelable(true);
         mTvOk = findViewById(R.id.tv_ok);
