@@ -966,92 +966,94 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                     handlerResult(medias);
                     break;
                 case PictureConfig.REQUEST_CAMERA:
-                    if (config.mimeType == PictureMimeType.ofAudio()) {
-                        cameraPath = getAudioPath(data);
-                    }
-                    // on take photo success
-                    final File file = new File(cameraPath);
-                    sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(file)));
-                    String toType = PictureMimeType.fileToType(file);
-                    if (config.mimeType != PictureMimeType.ofAudio()) {
-                        int degree = PictureFileUtils.readPictureDegree(file.getAbsolutePath());
-                        rotateImage(degree, file);
-                    }
-                    // 生成新拍照片或视频对象
-                    media = new LocalMedia();
-                    media.setPath(cameraPath);
+                    if (data != null) {
+                        if (config.mimeType == PictureMimeType.ofAudio()) {
+                            cameraPath = getAudioPath(data);
+                        }
+                        // on take photo success
+                        final File file = new File(cameraPath);
+                        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(file)));
+                        String toType = PictureMimeType.fileToType(file);
+                        if (config.mimeType != PictureMimeType.ofAudio()) {
+                            int degree = PictureFileUtils.readPictureDegree(file.getAbsolutePath());
+                            rotateImage(degree, file);
+                        }
+                        // 生成新拍照片或视频对象
+                        media = new LocalMedia();
+                        media.setPath(cameraPath);
 
-                    boolean eqVideo = toType.startsWith(PictureConfig.VIDEO);
-                    int duration = eqVideo ? PictureMimeType.getLocalVideoDuration(cameraPath) : 0;
-                    String pictureType = "";
-                    if (config.mimeType == PictureMimeType.ofAudio()) {
-                        pictureType = "audio/mpeg";
-                        duration = PictureMimeType.getLocalVideoDuration(cameraPath);
-                    } else {
-                        pictureType = eqVideo ? PictureMimeType.createVideoType(cameraPath)
-                                : PictureMimeType.createImageType(cameraPath);
-                    }
-                    media.setPictureType(pictureType);
-                    media.setDuration(duration);
-                    media.setMimeType(config.mimeType);
+                        boolean eqVideo = toType.startsWith(PictureConfig.VIDEO);
+                        int duration = eqVideo ? PictureMimeType.getLocalVideoDuration(cameraPath) : 0;
+                        String pictureType = "";
+                        if (config.mimeType == PictureMimeType.ofAudio()) {
+                            pictureType = "audio/mpeg";
+                            duration = PictureMimeType.getLocalVideoDuration(cameraPath);
+                        } else {
+                            pictureType = eqVideo ? PictureMimeType.createVideoType(cameraPath)
+                                    : PictureMimeType.createImageType(cameraPath);
+                        }
+                        media.setPictureType(pictureType);
+                        media.setDuration(duration);
+                        media.setMimeType(config.mimeType);
 
-                    // 因为加入了单独拍照功能，所有如果是单独拍照的话也默认为单选状态
-                    if (config.camera) {
-                        // 如果是单选 拍照后直接返回
-                        boolean eqImg = toType.startsWith(PictureConfig.IMAGE);
-                        if (config.enableCrop && eqImg) {
-                            // 去裁剪
-                            originalPath = cameraPath;
-                            startCrop(cameraPath);
-                        } else if (config.isCompress && eqImg) {
-                            // 去压缩
-                            medias.add(media);
-                            compressImage(medias);
-                            if (adapter != null) {
-                                images.add(0, media);
-                                adapter.notifyDataSetChanged();
+                        // 因为加入了单独拍照功能，所有如果是单独拍照的话也默认为单选状态
+                        if (config.camera) {
+                            // 如果是单选 拍照后直接返回
+                            boolean eqImg = toType.startsWith(PictureConfig.IMAGE);
+                            if (config.enableCrop && eqImg) {
+                                // 去裁剪
+                                originalPath = cameraPath;
+                                startCrop(cameraPath);
+                            } else if (config.isCompress && eqImg) {
+                                // 去压缩
+                                medias.add(media);
+                                compressImage(medias);
+                                if (adapter != null) {
+                                    images.add(0, media);
+                                    adapter.notifyDataSetChanged();
+                                }
+                            } else {
+                                // 不裁剪 不压缩 直接返回结果
+                                medias.add(media);
+                                onResult(medias);
                             }
                         } else {
-                            // 不裁剪 不压缩 直接返回结果
-                            medias.add(media);
-                            onResult(medias);
-                        }
-                    } else {
-                        // 多选 返回列表并选中当前拍照的
-                        images.add(0, media);
-                        if (adapter != null) {
-                            List<LocalMedia> selectedImages = adapter.getSelectedImages();
-                            // 没有到最大选择量 才做默认选中刚拍好的
-                            if (selectedImages.size() < config.maxSelectNum) {
-                                pictureType = selectedImages.size() > 0 ? selectedImages.get(0).getPictureType() : "";
-                                boolean toEqual = PictureMimeType.mimeToEqual(pictureType, media.getPictureType());
-                                // 类型相同或还没有选中才加进选中集合中
-                                if (toEqual || selectedImages.size() == 0) {
-                                    if (selectedImages.size() < config.maxSelectNum) {
-                                        // 如果是单选，则清空已选中的并刷新列表(作单一选择)
-                                        if (config.selectionMode == PictureConfig.SINGLE) {
-                                            singleRadioMediaImage();
+                            // 多选 返回列表并选中当前拍照的
+                            images.add(0, media);
+                            if (adapter != null) {
+                                List<LocalMedia> selectedImages = adapter.getSelectedImages();
+                                // 没有到最大选择量 才做默认选中刚拍好的
+                                if (selectedImages.size() < config.maxSelectNum) {
+                                    pictureType = selectedImages.size() > 0 ? selectedImages.get(0).getPictureType() : "";
+                                    boolean toEqual = PictureMimeType.mimeToEqual(pictureType, media.getPictureType());
+                                    // 类型相同或还没有选中才加进选中集合中
+                                    if (toEqual || selectedImages.size() == 0) {
+                                        if (selectedImages.size() < config.maxSelectNum) {
+                                            // 如果是单选，则清空已选中的并刷新列表(作单一选择)
+                                            if (config.selectionMode == PictureConfig.SINGLE) {
+                                                singleRadioMediaImage();
+                                            }
+                                            selectedImages.add(media);
+                                            adapter.bindSelectImages(selectedImages);
                                         }
-                                        selectedImages.add(media);
-                                        adapter.bindSelectImages(selectedImages);
                                     }
                                 }
+                                adapter.notifyDataSetChanged();
                             }
-                            adapter.notifyDataSetChanged();
                         }
-                    }
-                    if (adapter != null) {
-                        // 解决部分手机拍照完Intent.ACTION_MEDIA_SCANNER_SCAN_FILE
-                        // 不及时刷新问题手动添加
-                        manualSaveFolder(media);
-                        tv_empty.setVisibility(images.size() > 0
-                                ? View.INVISIBLE : View.VISIBLE);
-                    }
+                        if (adapter != null) {
+                            // 解决部分手机拍照完Intent.ACTION_MEDIA_SCANNER_SCAN_FILE
+                            // 不及时刷新问题手动添加
+                            manualSaveFolder(media);
+                            tv_empty.setVisibility(images.size() > 0
+                                    ? View.INVISIBLE : View.VISIBLE);
+                        }
 
-                    if (config.mimeType != PictureMimeType.ofAudio()) {
-                        int lastImageId = getLastImageId(eqVideo);
-                        if (lastImageId != -1) {
-                            removeImage(lastImageId, eqVideo);
+                        if (config.mimeType != PictureMimeType.ofAudio()) {
+                            int lastImageId = getLastImageId(eqVideo);
+                            if (lastImageId != -1) {
+                                removeImage(lastImageId, eqVideo);
+                            }
                         }
                     }
                     break;
